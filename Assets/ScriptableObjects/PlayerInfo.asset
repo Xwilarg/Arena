@@ -18,4 +18,4 @@ MonoBehaviour:
   SecondJumpHeight: 5
   IceSpeedMultiplicator: 0
   ThrowingForce: {x: 15, y: 10}
-  ThrowingTorque: 1000
+  ThrowingTorque: 10

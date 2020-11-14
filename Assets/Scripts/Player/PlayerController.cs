@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
             _currentWeapon.transform.parent = null;
             rb.simulated = true;
             rb.AddForce(new Vector2(_info.ThrowingForce.x * (_lookingRight ? 1f : -1f), _info.ThrowingForce.y), ForceMode2D.Impulse);
-            rb.AddTorque(_info.ThrowingTorque);
+            rb.AddTorque(_info.ThrowingTorque * (_lookingRight ? -1f : 1f));
             Physics2D.IgnoreCollision(_coll, coll);
 
             _currentWeapon.GetComponent<CanBeStuck>()?.Throw(_coll);
