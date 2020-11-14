@@ -3,11 +3,13 @@ using UnityEngine;
 public class Crate : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _sword;
+    private ItemsInfo ItemsInfo;
 
     public void Open()
     {
-        Instantiate(_sword, transform.position, transform.rotation);
+        var item = ItemsInfo.Items[Random.Range(0, ItemsInfo.Items.Length)];
+        var go = Instantiate(item.GameObject, transform.position, transform.rotation);
+        go.GetComponent<Grappable>().Item = item;
         Destroy(gameObject);
     }
 }

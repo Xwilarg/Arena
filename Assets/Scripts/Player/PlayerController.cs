@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -16,10 +15,15 @@ public class PlayerController : MonoBehaviour
 
     private List<GameObject> _grappable = new List<GameObject>();
 
+    private GameObject _currentWeapon = null;
+
+    private Vector3 _baseScale;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _baseScale = transform.localScale;
     }
 
     private void FixedUpdate()
@@ -35,8 +39,8 @@ public class PlayerController : MonoBehaviour
             _rb.velocity = new Vector2(hor * _info.Speed * (isGrass ? _info.GrassSpeedReductor : 1f), _rb.velocity.y);
 
         // Turn sprite to movement direction
-        if (_rb.velocity.x < 0f) _sr.flipX = true;
-        else if (_rb.velocity.x > 0f) _sr.flipX = false;
+        if (_rb.velocity.x < 0f) transform.localScale = new Vector3(-_baseScale.x, _baseScale.y, _baseScale.z);
+        else if (_rb.velocity.x > 0f) transform.localScale = new Vector3(_baseScale.x, _baseScale.y, _baseScale.z);
     }
 
     private void Update()
@@ -59,6 +63,15 @@ public class PlayerController : MonoBehaviour
             _grappable.RemoveAt(0);
             if (item.CompareTag("Crate"))
                 item.GetComponent<Crate>().Open();
+            else if (_currentWeapon == null)
+            {
+                item.transform.parent = transform;
+                item.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+                item.GetComponent<Collider2D>().enabled = false;
+                var g = item.GetComponent<Grappable>();
+                item.transform.localPosition = g.Item.Position;
+                item.transform.rotation = Quaternion.Euler(0f, 0f, g.Item.Rotation);
+            }
         }
     }
 
