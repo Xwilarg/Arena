@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D _rb;
-    private SpriteRenderer _sr;
+    private Collider2D _coll;
 
     private const float _jumpDist = .66f;
     private bool _canDoubleJump = true;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _sr = GetComponent<SpriteRenderer>();
+        _coll = GetComponent<Collider2D>();
         _baseScale = transform.localScale;
     }
 
@@ -87,12 +87,17 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetButtonDown("Fire2") && _currentWeapon != null) // Throw your weapon
         {
-            _currentWeapon.GetComponent<Collider2D>().enabled = true;
-            _currentWeapon.transform.parent = null;
+            var coll = _currentWeapon.GetComponent<Collider2D>();
             var rb = _currentWeapon.GetComponent<Rigidbody2D>();
+            coll.enabled = true;
+            _currentWeapon.transform.parent = null;
             rb.simulated = true;
             rb.AddForce(new Vector2(_info.ThrowingForce.x * (_lookingRight ? 1f : -1f), _info.ThrowingForce.y), ForceMode2D.Impulse);
             rb.AddTorque(_info.ThrowingTorque);
+            Physics2D.IgnoreCollision(_coll, coll);
+
+            var canBeStuck = _currentWeapon.GetComponent<CanBeStuck>();
+            if (canBeStuck != null) canBeStuck.Throw();
 
             _currentWeapon = null;
         }
