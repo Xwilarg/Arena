@@ -82,6 +82,9 @@ public class PlayerController : MonoBehaviour
                 var g = item.GetComponent<Grappable>();
                 item.transform.localPosition = g.Item.Position;
                 item.transform.rotation = Quaternion.Euler(0f, 0f, g.Item.Rotation + (_lookingRight ? 0f : 90f));
+
+                item.GetComponent<CanBeStuck>()?.Grab();
+
                 _currentWeapon = item;
             }
         }
@@ -96,8 +99,7 @@ public class PlayerController : MonoBehaviour
             rb.AddTorque(_info.ThrowingTorque);
             Physics2D.IgnoreCollision(_coll, coll);
 
-            var canBeStuck = _currentWeapon.GetComponent<CanBeStuck>();
-            if (canBeStuck != null) canBeStuck.Throw();
+            _currentWeapon.GetComponent<CanBeStuck>()?.Throw(_coll);
 
             _currentWeapon = null;
         }
