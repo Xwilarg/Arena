@@ -15,6 +15,8 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         var path = Application.dataPath + "/Maps/Base.txt";
+        if (!File.Exists(path))
+            path = "Maps/Base.txt";
 
         var map = File.ReadAllLines(path).Reverse().ToArray();
         int startX = -map[0].Length / 2;
