@@ -21,11 +21,14 @@ public class PlayerController : MonoBehaviour
         var hor = Input.GetAxis("Horizontal");
         _rb.velocity = new Vector2(hor * _info.Speed, _rb.velocity.y);
 
-        if (Input.GetButtonDown("Jump"))
-            _rb.AddForce(Vector2.up * _info.JumpHeight, ForceMode2D.Impulse);
-
         // Turn sprite to movement direction
         if (_rb.velocity.x < 0f) _sr.flipX = true;
         else if (_rb.velocity.x > 0f) _sr.flipX = false;
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+            _rb.AddForce(Vector2.up * _info.JumpHeight, ForceMode2D.Impulse);
     }
 }
