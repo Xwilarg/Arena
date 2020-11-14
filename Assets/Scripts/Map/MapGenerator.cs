@@ -40,6 +40,10 @@ public class MapGenerator : MonoBehaviour
                         _tilemapDecoration.SetTile(pos + new Vector3Int(0, 1, 0), _tiles.Grass);
                         break;
 
+                    case 'B':
+                        Instantiate(_tiles.Bumper, ((Vector3)pos * .64f) + (Vector3)(Vector2.one * (.64f / 2f)), Quaternion.identity);
+                        break;
+
                     case '.': break;
 
                     default:

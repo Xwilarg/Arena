@@ -16,3 +16,4 @@ MonoBehaviour:
   RockGrass: {fileID: 11400000, guid: e50fbc369f958284a86527b296e5e416, type: 2}
   Grass: {fileID: 11400000, guid: d6b29c55933aa014f9bbe78c66b2731f, type: 2}
   Ice: {fileID: 11400000, guid: d4b06bcee627c6749822578611288c5d, type: 2}
+  Bumper: {fileID: 3838825117675317673, guid: 2508b62843b3eb9479bf15ff90c241f3, type: 3}
