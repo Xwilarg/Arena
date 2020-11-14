@@ -4,5 +4,7 @@ using UnityEngine;
 public class CharacterInfo : ScriptableObject
 {
     public float Speed;
+    public float GrassSpeedReductor;
     public float JumpHeight;
+    public float SecondJumpHeight;
 }

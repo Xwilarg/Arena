@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: PlayerInfo
   m_EditorClassIdentifier: 
   Speed: 10
+  GrassSpeedReductor: 0.75
   JumpHeight: 10
+  SecondJumpHeight: 5

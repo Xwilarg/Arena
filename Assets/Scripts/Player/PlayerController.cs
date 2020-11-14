@@ -20,9 +20,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        bool isGrass = Physics2D.Raycast(transform.position, Vector2.down, _jumpDist, 1 << 8).collider?.tag == "Grass";
         // Movements
         var hor = Input.GetAxis("Horizontal");
-        _rb.velocity = new Vector2(hor * _info.Speed, _rb.velocity.y);
+        _rb.velocity = new Vector2(hor * _info.Speed * (isGrass ? _info.GrassSpeedReductor : 1f), _rb.velocity.y);
 
         // Turn sprite to movement direction
         if (_rb.velocity.x < 0f) _sr.flipX = true;
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
             else if (_canDoubleJump)
             {
                 _canDoubleJump = false;
-                _rb.AddForce(Vector2.up * _info.JumpHeight, ForceMode2D.Impulse);
+                _rb.AddForce(Vector2.up * _info.SecondJumpHeight, ForceMode2D.Impulse);
             }
         }
     }
