@@ -10,7 +10,7 @@ public class CanBeStuck : MonoBehaviour
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _rb = transform.parent.GetComponent<Rigidbody2D>();
         _coll = GetComponent<Collider2D>();
     }
 
