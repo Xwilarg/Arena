@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 1293921818}
   - component: {fileID: 1293921817}
   - component: {fileID: 1293921816}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: World
   m_TagString: Untagged
   m_Icon: {fileID: 0}

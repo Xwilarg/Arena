@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
 
+    private const float _jumpDist = .66f;
+    private bool _canDoubleJump = true;
+
     [SerializeField]
     private CharacterInfo _info;
 
@@ -28,7 +31,17 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!_canDoubleJump && Physics2D.Raycast(transform.position, Vector2.down, _jumpDist, 1 << 8).collider != null)
+            _canDoubleJump = true;
         if (Input.GetButtonDown("Jump"))
-            _rb.AddForce(Vector2.up * _info.JumpHeight, ForceMode2D.Impulse);
+        {
+            if (Physics2D.Raycast(transform.position, Vector2.down, _jumpDist, 1 << 8).collider != null)
+                _rb.AddForce(Vector2.up * _info.JumpHeight, ForceMode2D.Impulse);
+            else if (_canDoubleJump)
+            {
+                _canDoubleJump = false;
+                _rb.AddForce(Vector2.up * _info.JumpHeight, ForceMode2D.Impulse);
+            }
+        }
     }
 }
