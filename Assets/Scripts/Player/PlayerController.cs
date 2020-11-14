@@ -27,9 +27,15 @@ public class PlayerController : MonoBehaviour
         _baseScale = transform.localScale;
     }
 
+    public Collider2D GetJumpCollider()
+    {
+        var tmp = Physics2D.Raycast(transform.position, Vector2.down, _jumpDist, ~(1 << 9));
+        return tmp.collider;
+    }
+
     private void FixedUpdate()
     {
-        var tag = Physics2D.Raycast(transform.position, Vector2.down, _jumpDist, 1 << 8).collider?.tag;
+        var tag = GetJumpCollider()?.tag;
         var isGrass = tag == "Grass";
         var isIce = tag == "Ice";
         // Movements
@@ -55,12 +61,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Reset double jump if we are on the floor
-        if (!_canDoubleJump && Physics2D.Raycast(transform.position, Vector2.down, _jumpDist, 1 << 8).collider != null)
+        if (!_canDoubleJump && GetJumpCollider() != null)
             _canDoubleJump = true;
 
         if (Input.GetButtonDown("Jump"))
         {
-            if (Physics2D.Raycast(transform.position, Vector2.down, _jumpDist, 1 << 8).collider != null)
+            if (GetJumpCollider() != null)
                 _rb.AddForce(Vector2.up * _info.JumpHeight, ForceMode2D.Impulse);
             else if (_canDoubleJump)
             {
