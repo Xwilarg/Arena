@@ -20,10 +20,15 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool isGrass = Physics2D.Raycast(transform.position, Vector2.down, _jumpDist, 1 << 8).collider?.tag == "Grass";
+        var tag = Physics2D.Raycast(transform.position, Vector2.down, _jumpDist, 1 << 8).collider?.tag;
+        var isGrass = tag == "Grass";
+        var isIce = tag == "Ice";
         // Movements
         var hor = Input.GetAxis("Horizontal");
-        _rb.velocity = new Vector2(hor * _info.Speed * (isGrass ? _info.GrassSpeedReductor : 1f), _rb.velocity.y);
+        if (hor == 0f && isIce)
+            _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y);
+        else
+            _rb.velocity = new Vector2(hor * _info.Speed * (isGrass ? _info.GrassSpeedReductor : 1f), _rb.velocity.y);
 
         // Turn sprite to movement direction
         if (_rb.velocity.x < 0f) _sr.flipX = true;

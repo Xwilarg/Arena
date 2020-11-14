@@ -7,4 +7,5 @@ public class CharacterInfo : ScriptableObject
     public float GrassSpeedReductor;
     public float JumpHeight;
     public float SecondJumpHeight;
+    public float IceSpeedMultiplicator;
 }
