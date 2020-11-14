@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private CharacterInfo _info;
+
+    private List<GameObject> _grappable = new List<GameObject>();
 
     private void Start()
     {
@@ -49,5 +53,26 @@ public class PlayerController : MonoBehaviour
                 _rb.AddForce(Vector2.up * _info.SecondJumpHeight, ForceMode2D.Impulse);
             }
         }
+        if (Input.GetButtonDown("Fire1") && _grappable.Count > 0)
+        {
+            var item = _grappable[0];
+            _grappable.RemoveAt(0);
+            if (item.CompareTag("Crate"))
+                item.GetComponent<Crate>().Open();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var component = collision.gameObject.GetComponent<Grappable>();
+        if (component != null)
+            _grappable.Add(component.gameObject);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        var component = collision.gameObject.GetComponent<Grappable>();
+        if (component != null)
+            _grappable.Remove(component.gameObject);
     }
 }

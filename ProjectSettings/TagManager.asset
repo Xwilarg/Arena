@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Grass
   - Ice
+  - Crate
   layers:
   - Default
   - TransparentFX
