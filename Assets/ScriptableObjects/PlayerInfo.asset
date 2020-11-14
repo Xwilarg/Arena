@@ -16,3 +16,6 @@ MonoBehaviour:
   GrassSpeedReductor: 0.75
   JumpHeight: 10
   SecondJumpHeight: 5
+  IceSpeedMultiplicator: 0
+  ThrowingForce: {x: 15, y: 10}
+  ThrowingTorque: 1000

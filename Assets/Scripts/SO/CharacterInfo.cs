@@ -8,4 +8,6 @@ public class CharacterInfo : ScriptableObject
     public float JumpHeight;
     public float SecondJumpHeight;
     public float IceSpeedMultiplicator;
+    public Vector2 ThrowingForce;
+    public float ThrowingTorque;
 }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   Position: {x: 0.34, y: 0.203}
-  Rotation: 90
+  Rotation: 0
   GameObject: {fileID: 5068305802962717945, guid: ef284a4d1538757429729fabbf4d74f2, type: 3}
