@@ -19,6 +19,11 @@ public class AIManager : MonoBehaviour
         _map = map;
     }
 
+    public TileType GetMapPos(Vector2Int pos)
+    {
+        return _map[pos];
+    }
+
     public void RegisterCharacter(Character c)
     {
         _characters.Add(c);
