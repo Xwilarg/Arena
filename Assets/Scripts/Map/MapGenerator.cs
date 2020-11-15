@@ -22,6 +22,7 @@ public class MapGenerator : MonoBehaviour
         var map = File.ReadAllLines(path).Reverse().ToArray();
         var tileMap = new Dictionary<Vector2Int, TileType>();
         int startX = -map[0].Length / 2;
+        Camera.main.orthographicSize = map[0].Length * 0.15f;
         int startY = -map.Length / 2;
         for (int y = 0; y < map.Length; y++)
         {
@@ -50,6 +51,22 @@ public class MapGenerator : MonoBehaviour
                     case 'B':
                         Instantiate(_tiles.Bumper, ((Vector3)pos * .64f) + (Vector3)(Vector2.one * (.64f / 2f)), Quaternion.identity);
                         tileMap.Add((Vector2Int)pos, TileType.Bumper);
+                        break;
+
+                    case '-':
+                        Tile tile;
+                        var prev = line[x - 1];
+                        var next = line[x + 1];
+                        if (prev != '-' && prev != '.' && next != '-' && next != '.')
+                            tile = _tiles.PlateformBoth;
+                        else if (prev != '-' && prev != '.')
+                            tile = _tiles.PlateformLeft;
+                        else if (next != '-' && next != '.')
+                            tile = _tiles.PlateformRight;
+                        else
+                            tile = _tiles.PlateformNone;
+                        _tilemapRock.SetTile(pos, tile);
+                        tileMap.Add((Vector2Int)pos, TileType.Plateform);
                         break;
 
                     case '.':

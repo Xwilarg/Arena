@@ -4,5 +4,6 @@
     Normal,
     Grass,
     Ice,
-    Bumper
+    Bumper,
+    Plateform
 }
