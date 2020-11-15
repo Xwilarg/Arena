@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField]
-    private Tilemap _tilemapRock, _tilemapGrass, _tilemapIce, _tilemapDecoration;
+    private Tilemap _tilemapRock, _tilemapGrass, _tilemapIce, _tilemapDecoration, _tilemapPlateform;
 
     [SerializeField]
     private Tiles _tiles;
@@ -65,7 +65,7 @@ public class MapGenerator : MonoBehaviour
                             tile = _tiles.PlateformRight;
                         else
                             tile = _tiles.PlateformNone;
-                        _tilemapRock.SetTile(pos, tile);
+                        _tilemapPlateform.SetTile(pos, tile);
                         tileMap.Add((Vector2Int)pos, TileType.Plateform);
                         break;
 
