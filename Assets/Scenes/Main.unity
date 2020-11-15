@@ -392,6 +392,7 @@ GameObject:
   - component: {fileID: 656178113}
   - component: {fileID: 656178111}
   - component: {fileID: 656178112}
+  - component: {fileID: 656178117}
   m_Layer: 9
   m_Name: Ennemy
   m_TagString: Untagged
@@ -540,6 +541,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &656178117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656178110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413592a2d152b9a45b6b84f00c6aa2c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &718611595
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,6 +974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 865833799}
   - component: {fileID: 865833800}
+  - component: {fileID: 865833801}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -999,6 +1013,18 @@ MonoBehaviour:
   _tilemapIce: {fileID: 1755920073}
   _tilemapDecoration: {fileID: 647886454}
   _tiles: {fileID: 11400000, guid: 25597008edfd3d24a9a7ad9f4425124d, type: 2}
+--- !u!114 &865833801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865833798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6ce178236add14c9dc179d8e77ceb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &885957759
 GameObject:
   m_ObjectHideFlags: 0

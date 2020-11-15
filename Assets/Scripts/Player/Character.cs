@@ -22,6 +22,15 @@ public class Character : MonoBehaviour
 
     private float _hor = 0f;
 
+    private static int _id = 0;
+    private int _myId = _id++;
+
+    public static bool operator ==(Character c1, Character c2)
+        => c1._myId == c2._myId;
+
+    public static bool operator !=(Character c1, Character c2)
+        => c1._myId != c2._myId;
+
     public void SetXAxis(float val)
     {
         _hor = val;
@@ -32,6 +41,8 @@ public class Character : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _coll = GetComponent<Collider2D>();
         _baseScale = transform.localScale;
+
+        AIManager.S.RegisterCharacter(this);
     }
 
     public Collider2D GetJumpCollider()

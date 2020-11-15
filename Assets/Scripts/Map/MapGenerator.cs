@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class MapGenerator : MonoBehaviour
             path = "Maps/Base.txt";
 
         var map = File.ReadAllLines(path).Reverse().ToArray();
+        var tileMap = new Dictionary<Vector2Int, TileType>();
         int startX = -map[0].Length / 2;
         int startY = -map.Length / 2;
         for (int y = 0; y < map.Length; y++)
@@ -31,27 +33,35 @@ public class MapGenerator : MonoBehaviour
                 {
                     case 'R':
                         _tilemapRock.SetTile(pos, _tiles.Rock);
+                        tileMap.Add((Vector2Int)pos, TileType.Normal);
                         break;
 
                     case 'I':
                         _tilemapIce.SetTile(pos, _tiles.Ice);
+                        tileMap.Add((Vector2Int)pos, TileType.Ice);
                         break;
 
                     case 'G':
                         _tilemapGrass.SetTile(pos, _tiles.RockGrass);
                         _tilemapDecoration.SetTile(pos + new Vector3Int(0, 1, 0), _tiles.Grass);
+                        tileMap.Add((Vector2Int)pos, TileType.Grass);
                         break;
 
                     case 'B':
                         Instantiate(_tiles.Bumper, ((Vector3)pos * .64f) + (Vector3)(Vector2.one * (.64f / 2f)), Quaternion.identity);
+                        tileMap.Add((Vector2Int)pos, TileType.Bumper);
                         break;
 
-                    case '.': break;
+                    case '.':
+                        tileMap.Add((Vector2Int)pos, TileType.None);
+                        break;
 
                     default:
                         throw new ArgumentException("Invalid tile " + line[x]);
                 }
             }
         }
+
+        AIManager.S.LoadMap(tileMap);
     }
 }
