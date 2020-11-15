@@ -6,6 +6,7 @@ public class Character : MonoBehaviour
 {
     private Rigidbody2D _rb;
     private Collider2D _coll;
+    private Animator _anim;
 
     private const float _jumpDist = .66f;
     private bool _canDoubleJump = true;
@@ -40,6 +41,7 @@ public class Character : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _coll = GetComponent<Collider2D>();
+        _anim = GetComponent<Animator>();
         _baseScale = transform.localScale;
 
         AIManager.S.RegisterCharacter(this);
@@ -131,8 +133,10 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
+        var isOnFloor = GetJumpCollider() != null;
+        _anim.SetBool("IsOnFloor", isOnFloor);
         // Reset double jump if we are on the floor
-        if (!_canDoubleJump && GetJumpCollider() != null)
+        if (!_canDoubleJump && isOnFloor)
             _canDoubleJump = true;
     }
 
